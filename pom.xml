@@ -45,7 +45,7 @@
     </dependencies>
     <!--打jar包主清单问题解决-->
     <build>
-        <finalName>WebSSH</finalName>
+        <finalName>webssh</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -24,7 +24,6 @@
     用户名:<input id="usernameid" name="username" type="text" value="root" />
     密码:<input id="passwordid" name="password" type="text" value="123456" />
     <input name="连接" type="button" onclick="getfrom()"  value="连 接"/>
-    <!--        <button onclick="getfrom()">连接</button>-->
 </form>
 
 
@@ -51,18 +50,8 @@
         });
         this.onConnect();
     }
-    // openTerminal( {
-    //     operate:'connect',
-    //     host: '139.196.79.22',//IP
-    //     port: '22',//端口号
-    //     username: 'root',//用户名
-    //     password: '123456Hu'//密码
-    // });
-
 
     function openTerminal(options){
-        console.log('1:')
-        console.log(options)
         var client = new WSSHClient();
         var term = new Terminal({
             cols: 97,
@@ -75,8 +64,6 @@
         });
 
         term.on('data', function (data) {
-            console.log('2:')
-            console.log(data)
             //键盘输入时的回调函数
             client.sendClientData(data);
         });
@@ -90,7 +77,6 @@
                 term.write('Error: ' + error + '\r\n');
             },
             onConnect: function () {
-                console.log("执行链接99999")
                 //连接成功回调
                 client.sendInitData(options);
             },
