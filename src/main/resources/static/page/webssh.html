@@ -52,8 +52,6 @@
     }
 
     function openTerminal(options){
-        console.log('1:')
-        console.log(options)
         var client = new WSSHClient();
         var term = new Terminal({
             cols: 97,
@@ -66,8 +64,6 @@
         });
 
         term.on('data', function (data) {
-            console.log('2:')
-            console.log(data)
             //键盘输入时的回调函数
             client.sendClientData(data);
         });
@@ -81,7 +77,6 @@
                 term.write('Error: ' + error + '\r\n');
             },
             onConnect: function () {
-                console.log("执行链接99999")
                 //连接成功回调
                 client.sendInitData(options);
             },
