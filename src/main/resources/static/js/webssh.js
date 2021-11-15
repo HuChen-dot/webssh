@@ -24,6 +24,7 @@ WSSHClient.prototype.connect = function (options) {
     }
 
     this._connection.onopen = function () {
+        console.log("666")
         options.onConnect();
     };
 

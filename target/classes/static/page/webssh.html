@@ -1,16 +1,56 @@
 <!doctype html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ssh</title>
     <link rel="stylesheet" href="../css/xterm.css" />
 </head>
 <body>
-<div id="terminal" style="width: 100%;height: 100%"></div>
+<!--<div id="terminal" style="width: 100%;height: 100%" charset="utf-8">-->
+<!--&lt;!&ndash;    <input type="operate" value="operate" />&ndash;&gt;-->
+<!--    <form name=”myform”>-->
+<!--        ip地址:<input name="host" type="text" value="127.0.0.1" />-->
+<!--        端口号:<input name="port" type="text" value="22" />-->
+<!--        用户名:<input name="username" type="text" value="root" />-->
+<!--        密码:<input name="password" type="text" value="123456" />-->
+<!--        <input name="连接" type="button" onclick="getfrom()"/>-->
+<!--&lt;!&ndash;        <button onclick="getfrom()">连接</button>&ndash;&gt;-->
+<!--    </form>-->
+
+<!--</div>-->
+<form id="myformid" name=”myform”>
+    ip地址:<input id="hostid" name="host" type="text" value="127.0.0.1" />
+    端口号:<input id="portid" name="port" type="text" value="22" />
+    用户名:<input id="usernameid" name="username" type="text" value="root" />
+    密码:<input id="passwordid" name="password" type="text" value="123456" />
+    <input name="连接" type="button" onclick="getfrom()"  value="连 接"/>
+    <!--        <button onclick="getfrom()">连接</button>-->
+</form>
+
+
 
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/xterm.js" charset="utf-8"></script>
 <script src="../js/webssh.js" charset="utf-8"></script>
 <script>
+    function getfrom(){
+       var host= document.getElementById("hostid").value;
+        var port= document.getElementById("portid").value;
+        var username= document.getElementById("usernameid").value;
+        var password= document.getElementById("passwordid").value;
+        console.log(host)
+        console.log(port)
+        console.log(username)
+        console.log(password)
+        openTerminal( {
+            operate:'connect',
+            host: host,//IP
+            port: port,//端口号
+            username: username,//用户名
+            password: password//密码
+        });
+        this.onConnect();
+    }
     // openTerminal( {
     //     operate:'connect',
     //     host: '139.196.79.22',//IP
@@ -18,7 +58,11 @@
     //     username: 'root',//用户名
     //     password: '123456Hu'//密码
     // });
+
+
     function openTerminal(options){
+        console.log('1:')
+        console.log(options)
         var client = new WSSHClient();
         var term = new Terminal({
             cols: 97,
@@ -31,12 +75,14 @@
         });
 
         term.on('data', function (data) {
+            console.log('2:')
+            console.log(data)
             //键盘输入时的回调函数
             client.sendClientData(data);
         });
         term.open(document.getElementById('terminal'));
         //在页面上显示连接中...
-        term.write('Connecting...');
+        term.write('等待连接中...');
         //执行连接操作
         client.connect({
             onError: function (error) {
@@ -44,6 +90,7 @@
                 term.write('Error: ' + error + '\r\n');
             },
             onConnect: function () {
+                console.log("执行链接99999")
                 //连接成功回调
                 client.sendInitData(options);
             },

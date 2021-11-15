@@ -9,4 +9,9 @@ public class RouterController {
     public String websshpage(){
         return "webssh";
     }
+
+//    @RequestMapping("/ssh1")
+//    public void websshpage1(){
+//        System.err.println("bskdhfdshbvjds");
+//    }
 }
